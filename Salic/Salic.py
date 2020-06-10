@@ -4,7 +4,7 @@ import sqlite3
 
 
 
-class Salic:
+class Session:
     def __init__(self, url):
         self.URL = url
         self.count = 0
