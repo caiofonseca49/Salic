@@ -1,8 +1,4 @@
-import pandas as pd
-from pandas.io.json import json_normalize
-import sqlite3
-
-
+from S import *
 
 
 class Dataframe:
@@ -94,6 +90,7 @@ class Dataframe:
 
         if not keep_alive:
             connection.close()
+            print('Closed')
 
         else:
             return connection

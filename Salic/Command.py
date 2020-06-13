@@ -1,15 +1,11 @@
-import sqlite3
-import pandas as pd
-from pandas.io.json import json_normalize
-
-
-
-
-
+from S import *
 
 class SQLData:
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self, connection=False):
+        if connection:
+            self.connection = connection
+
+
         self.TABLE = """CREATE TABLE {table_name} (
                         {table_content});"""
         self.INSERT = """INSERT INTO {table_name}
@@ -21,14 +17,35 @@ class SQLData:
         self.TYPES = {int: 'INTEGER', str: 'TEXT', float: 'REAL'}
 
 
-    def command_get(self, command_list):
-        connection = self.connection_open(self.filename)
+
+
+    def command_get(self, connection, command_list, keep_alive=False):
+        for command in command_list:
+            cursor = connection.cursor()
+            cursor.execute(command)
+            cursor.commit()
+
+        if not keep_alive:
+            connection.close()
+            print('Closed')
+        else:
+            return connection
+
+
+
+    def command_get_(self, filename, command_list, keep_alive=False):
+        connection = self.connection_open(filename)
 
         for command in command_list:
             cursor = connection.cursor()
             cursor.execute(command)
-        
-        connection.close()
+            cursor.commit()
+
+        if not keep_alive:
+            connection.close()
+            print('Closed')
+        else:
+            return connection
 
 
 

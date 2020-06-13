@@ -1,7 +1,4 @@
-import params_
-import requests
-import sqlite3
-
+from S import *
 
 
 class Session:
@@ -63,8 +60,8 @@ class Salic_SQL:
         self.DATA = session_data
 
     
-    def database_connect(self, filename):
-        connection = sqlite3.connect(filename)
+    def database_connect(self, database):
+        connection = sqlite3.connect(database)
         
         return connection
 
